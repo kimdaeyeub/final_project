@@ -8,9 +8,11 @@ class MainNavigationScreen extends StatefulWidget {
   const MainNavigationScreen({
     super.key,
     required this.tab,
+    required this.selectedIndex,
   });
 
   final String tab;
+  final int selectedIndex;
   static const String routeName = "mainNavigation";
 
   @override
@@ -26,11 +28,10 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   late int _selectedIndex = _tabs.indexOf(widget.tab);
 
   void _selectTab(int index) {
-    context.go("/${_tabs[index]}");
-    print(index);
     setState(() {
       _selectedIndex = index;
     });
+    context.go("/${_tabs[index]}");
   }
 
   @override
@@ -54,32 +55,38 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
             showUnselectedLabels: false,
             onTap: (value) => _selectTab(value),
             currentIndex: _selectedIndex,
-            items: const [
+            items: [
               BottomNavigationBarItem(
                 label: "Home",
                 icon: FaIcon(
                   FontAwesomeIcons.house,
+                  color: widget.selectedIndex == 0
+                      ? Colors.black
+                      : Colors.grey.shade700,
                 ),
               ),
               BottomNavigationBarItem(
                 label: "Write",
                 icon: FaIcon(
                   FontAwesomeIcons.pencil,
+                  color: widget.selectedIndex == 1
+                      ? Colors.black
+                      : Colors.grey.shade700,
                 ),
               ),
             ],
           ),
         ),
-        body: TabBarView(
+        body: Stack(
           children: [
             Offstage(
-              offstage: _selectedIndex != 0,
+              offstage: widget.selectedIndex != 0,
               child: const HomeScreen(),
             ),
             Offstage(
-              offstage: _selectedIndex != 1,
+              offstage: widget.selectedIndex != 1,
               child: const AddMoodScreen(),
-            )
+            ),
           ],
         ),
       ),
