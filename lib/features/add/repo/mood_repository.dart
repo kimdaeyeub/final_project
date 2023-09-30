@@ -13,6 +13,14 @@ class MoodRepository {
         // .collection(DateTime.now().millisecondsSinceEpoch.toString())
         .add(newMood);
   }
+
+  Future<QuerySnapshot<Map<String, dynamic>>> getMoods() async {
+    final moods = await _db
+        .collection("mood")
+        .orderBy("createdAt", descending: true)
+        .get();
+    return moods;
+  }
 }
 
 final moodRepo = Provider(

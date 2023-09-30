@@ -1,42 +1,5 @@
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
-  static const String routeName = "home";
-  static const String routeURL = '/home';
-
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          "🔥MOOD🔥",
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-      body: const Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: 20,
-        ),
-        child: Column(
-          children: [
-            SizedBox(
-              height: 30,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
 class MoodTile extends StatelessWidget {
   const MoodTile({
     super.key,
@@ -46,7 +9,7 @@ class MoodTile extends StatelessWidget {
   });
   final String icon;
   final String text;
-  final String time;
+  final int time;
 
   @override
   Widget build(BuildContext context) {
@@ -80,6 +43,7 @@ class MoodTile extends StatelessWidget {
           ),
         ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -105,7 +69,9 @@ class MoodTile extends StatelessWidget {
                   ],
                 ),
                 Text(
-                  time,
+                  DateTime.fromMillisecondsSinceEpoch(time)
+                      .toString()
+                      .substring(0, 16),
                   style: TextStyle(
                     color: Colors.grey.shade700,
                   ),

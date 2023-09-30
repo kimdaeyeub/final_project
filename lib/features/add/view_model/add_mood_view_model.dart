@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:final_project/features/add/model/mood_model.dart';
 import 'package:final_project/features/add/repo/mood_repository.dart';
 import 'package:final_project/features/auth/repo/auth_repository.dart';
+import 'package:final_project/features/home/view_model/get_mood_view_model.dart';
 import 'package:final_project/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -29,6 +30,7 @@ class AddMoodViewModel extends AsyncNotifier<void> {
 
     if (!state.hasError) {
       context.go("/home");
+      ref.read(getMoodProvider.notifier).refresh();
     } else {
       showFirebaseErrorSnack(context, state.error);
     }

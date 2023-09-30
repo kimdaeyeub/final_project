@@ -15,7 +15,7 @@ class Mood {
       : text = json["text"],
         icon = json["icon"],
         creatorUid = json["creatorUid"],
-        createdAt = json["createAt"];
+        createdAt = json["createdAt"];
 
   Map<String, dynamic> toJson() {
     return {
