@@ -119,6 +119,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                 height: 10,
               ),
               TextField(
+                obscureText: true,
                 controller: _passwordController,
                 decoration: InputDecoration(
                   filled: true,

@@ -118,6 +118,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 height: 10,
               ),
               TextField(
+                obscureText: true,
                 controller: _passwordController,
                 decoration: InputDecoration(
                   filled: true,

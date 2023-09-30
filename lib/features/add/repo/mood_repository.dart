@@ -5,13 +5,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class MoodRepository {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
-  Future<void> addMood(Mood mood, String uid) async {
+  Future<void> addMood(Mood mood, int time) async {
     final newMood = mood.toJson();
     await _db
         .collection("mood")
-        // .doc("hello")
-        // .collection(DateTime.now().millisecondsSinceEpoch.toString())
-        .add(newMood);
+        .doc(time.toString().substring(0, 12))
+        .set(newMood);
+    // .doc("hello")
+    // .collection(DateTime.now().millisecondsSinceEpoch.toString())
+    // .add(newMood);
   }
 
   Future<QuerySnapshot<Map<String, dynamic>>> getMoods() async {
@@ -20,6 +22,11 @@ class MoodRepository {
         .orderBy("createdAt", descending: true)
         .get();
     return moods;
+  }
+
+  Future<void> deleteMood(Mood mood) async {
+    final moodRef = _db.collection("mood").doc(mood.id);
+    await moodRef.delete();
   }
 }
 

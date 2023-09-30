@@ -41,6 +41,9 @@ class _AddMoodScreenState extends ConsumerState<AddMoodScreen> {
       ref.read(addMoodProvider.notifier).addMood(
           _textEditingController.text, _iconList[_selectedIcon], context);
       _textEditingController.clear();
+      setState(() {
+        _selectedIcon = 0;
+      });
       context.go("/home");
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
